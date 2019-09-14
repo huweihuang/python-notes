@@ -1,6 +1,6 @@
-# 6. 循环语句
+# 2. 循环语句
 
-## 6.1 for循环
+## 2.1 for循环
 
 for...in循环，即把list或tuple中的每个元素迭代出来，执行后续操作。
 
@@ -22,7 +22,7 @@ for x in range(101):
 print(sum)
 ```
 
-## 6.2 while循环
+## 2.2 while循环
 
 while循环，只要条件满足，就不断循环，条件不满足时退出循环。
 
@@ -35,7 +35,7 @@ while n > 0:
 print(sum)
 ```
 
-## 6.3 break
+## 2.3 break
 
 在循环中，`break`语句可以提前退出循环。
 
@@ -49,7 +49,7 @@ while n <= 100:
 print('END')
 ```
 
-## 6.4 continue
+## 2.4 continue
 
 在循环过程中，可以通过`continue`语句，跳过当前的这次循环，直接开始下一次循环。
 

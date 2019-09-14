@@ -1,6 +1,6 @@
-# 5. 条件语句
+# 1. 条件语句
 
-## 5.1 if格式
+## 1.1 if格式
 
 ```python
 if <条件判断1>:
@@ -30,7 +30,7 @@ else:
     print('kid')
 ```
 
-## 5.2 条件简写
+## 1.2 条件简写
 
 ```python
 if x:
@@ -39,7 +39,7 @@ if x:
 
 只要`x`是非零数值、非空字符串、非空list等，就判断为`True`，否则为`False`。
 
-## 5.3 input()使用
+## 1.3 input()使用
 
 ```python
 s = input('birth: ')
