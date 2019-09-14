@@ -17,14 +17,17 @@
 * [序言](README.md)
 * [计算机语言概述](language.md)
 
-## 基础篇
+## 数据类型
 
-* [数据类型和变量](basics/types.md)
-* [字符串](basics/string.md)
-* [list和tuple](basics/list-tuple.md)
-* [dict和set](basics/dict-set.md)
-* [条件判断](basics/if-else.md)
-* [循环](basics/for-while.md)
+* [数据类型和变量](data-type/types.md)
+* [字符串](data-type/string.md)
+* [list和tuple](data-type/list-tuple.md)
+* [dict和set](data-type/dict-set.md)
+
+## 流程控制语句
+
+* [条件判断](flow-control/if-else.md)
+* [循环](flow-control/for-while.md)
 
 ## python函数
 
