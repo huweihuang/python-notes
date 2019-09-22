@@ -22,4 +22,6 @@
 <url> <loc>https://www.huweihuang.com/python-notes/oop/polymorphism.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/python-notes/oop/self.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/python-notes/oop/type-isinstance.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://www.huweihuang.com/python-notes/django/install-django.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://www.huweihuang.com/python-notes/django/quick-start.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 </urlset>
