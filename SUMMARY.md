@@ -41,4 +41,7 @@
 * [获取对象信息](oop/self.md) 
 * [实例属性和类属性](oop/type-isinstance.md) 
 
+## django 框架
 
+* [安装Django](django/install-django.md) 
+* [创建项目](django/quick-start.md) 
