@@ -6,6 +6,8 @@
 - `Unicode`编码，统一各国语言编码，用两个字节（16位）表示。如果文本全是英文，则会比ASCII编码需要多一倍的存储空间，在存储和传输上不划算。
 - `UTF-8`编码，即可变长的Unicode编码，UTF-8编码把一个Unicode字符根据不同的数字大小编码成1-6个字节，常用的英文字母被编码成1个字节，汉字通常是3个字节，只有很生僻的字符才会被编码成4-6个字节。如果你要传输的文本包含大量英文字符，用UTF-8编码能节省空间。
 
+> 编码转换工具：https://tool.chinaz.com/tools/unicode.aspx
+
 ## 2.2 字符编码使用场景
 
  -  在计算机内存中，统一使用Unicode编码。
@@ -167,6 +169,31 @@ UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 3: invalid 
 'Hello, 小明, 成绩提升了 17.1%'
 ```
 
+## 2.6 json 中的中文解析
+
+使用`json.dumps(data, ensure_ascii=False)`解析json中的中文。
+
+```python
+#!/usr/bin/python
+# -*- coding: utf8 -*-
+
+import json
+import sys
+
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
+data = [ { 'a' : '中文' } ]
+
+result = json.dumps(data, ensure_ascii=False)
+print result
+```
+
+输出结果：
+
+```bash
+[{"a": "中文"}]
+```
 
 参考：
 
