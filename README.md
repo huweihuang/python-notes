@@ -36,7 +36,6 @@
 * [函数参数](function/function-args.md) 
 * [递归函数](function/recursive-function.md) 
 
-
 ## 高级特性
 
 * [切片](advanced/slice.md)
@@ -52,6 +51,10 @@
 * [继承和多态](oop/polymorphism.md) 
 * [获取对象信息](oop/self.md) 
 * [实例属性和类属性](oop/type-isinstance.md) 
+
+## 包与模块
+
+* [包与模块](package/package-module.md) 
 
 ## django 框架
 
