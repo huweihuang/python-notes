@@ -115,7 +115,7 @@ project
 │   ├── module_11.py
 │   └── module_12.py
 ├── package2
-│   ├── __init_.py
+│   ├── __init__.py
 │   ├── module_21.py
 │   └── module_22.py
 ├── main.py
