@@ -5,6 +5,11 @@
 * [序言](README.md)
 * [计算机语言概述](language.md)
 
+## 安装配置
+
+* [pip的使用](setup/pip.md)
+* [安装虚拟环境](setup/install-venv.md)
+
 ## 数据类型
 
 * [数据类型和变量](data-type/types.md)
