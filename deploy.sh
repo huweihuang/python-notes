@@ -5,6 +5,7 @@ set -e
 
 MESSAGE=$1
 
+rm -fr gh-pages
 git clone -b gh-pages https://github.com/huweihuang/python-notes.git gh-pages
 MASTER_DIR="$(pwd)"
 GHPAGE_DIR="${MASTER_DIR}/gh-pages"
