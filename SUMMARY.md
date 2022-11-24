@@ -3,6 +3,7 @@
 ## 前言
 
 * [序言](README.md)
+* [Python资源](python-resource.md)
 * [计算机语言概述](language.md)
 
 ## 安装配置
@@ -44,6 +45,7 @@
 * [继承和多态](oop/polymorphism.md) 
 * [获取对象信息](oop/self.md) 
 * [实例属性和类属性](oop/type-isinstance.md) 
+* [Python装饰器](oop/decorator.md) 
 
 ## 包与模块
 
