@@ -1,0 +1,1694 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Keepalived简介 · Linux 学习笔记</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="胡伟煌">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-image-captions/image-captions.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search-plus/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-disqus/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-donate/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="install-keepalived.html" />
+    
+    
+
+    
+        <link rel="shortcut icon" href='../images/favicon.ico' type="image/x-icon">
+    
+    
+        <link rel="bookmark" href='../images/favicon.ico' type="image/x-icon">
+    
+    
+        <link rel="apple-touch-icon" href='../images/favicon.ico'>
+    
+    
+        
+        <link rel="apple-touch-icon" sizes="120x120" href="../images/favicon.ico">
+        
+        <link rel="apple-touch-icon" sizes="180x180" href="../images/favicon.ico">
+        
+    
+
+    <style>
+    @media only screen and (max-width: 640px) {
+        .book-header .hidden-mobile {
+            display: none;
+        }
+    }
+    </style>
+    <script>
+        window["gitbook-plugin-github-buttons"] = {"repo":"huweihuang/linux-notes","types":["star"],"size":"small"};
+    </script>
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+        
+        <li>
+            <a href="https://www.huweihuang.com" target="_blank" class="custom-link">胡伟煌的博客</a>
+        </li>
+    
+        
+        <li>
+            <a href="https://www.huweihuang.com/kubernetes-notes/" target="_blank" class="custom-link">Kubernetes 学习笔记</a>
+        </li>
+    
+        
+        <li>
+            <a href="https://www.huweihuang.com/golang-notes/" target="_blank" class="custom-link">Golang 学习笔记</a>
+        </li>
+    
+        
+        <li>
+            <a href="https://www.huweihuang.com/linux-notes/" target="_blank" class="custom-link">Linux 学习笔记</a>
+        </li>
+    
+        
+        <li>
+            <a href="https://www.huweihuang.com/data-structure-notes/" target="_blank" class="custom-link">数据结构学习笔记</a>
+        </li>
+    
+        
+        <li>
+            <a href="https://www.huweihuang.com/python-notes/" target="_blank" class="custom-link">Python 学习笔记</a>
+        </li>
+    
+        
+        <li>
+            <a href="https://www.huweihuang.com/blockchain-notes/" target="_blank" class="custom-link">Blockchain 学习笔记</a>
+        </li>
+    
+    
+
+    
+    <li class="divider"></li>
+    
+
+    
+        
+        <li class="header">序言</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                        <b>1.1.</b>
+                    
+                    序言
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">计算</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" >
+            
+                <span>
+            
+                    
+                        <b>2.1.</b>
+                    
+                    CPU
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" >
+            
+                <span>
+            
+                    
+                        <b>2.2.</b>
+                    
+                    内存
+            
+                </span>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">存储</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" >
+            
+                <span>
+            
+                    
+                        <b>3.1.</b>
+                    
+                    Linux 文件系统
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1.1" data-path="../file/linux-introduction.html">
+            
+                <a href="../file/linux-introduction.html">
+            
+                    
+                        <b>3.1.1.</b>
+                    
+                    Linux 介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.2" data-path="../file/linux-file-system.html">
+            
+                <a href="../file/linux-file-system.html">
+            
+                    
+                        <b>3.1.2.</b>
+                    
+                    文件系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.3" data-path="../file/linux-file-storage.html">
+            
+                <a href="../file/linux-file-storage.html">
+            
+                    
+                        <b>3.1.3.</b>
+                    
+                    文件存储结构
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.4" data-path="../file/linux-file-permission.html">
+            
+                <a href="../file/linux-file-permission.html">
+            
+                    
+                        <b>3.1.4.</b>
+                    
+                    文件权限
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" >
+            
+                <span>
+            
+                    
+                        <b>3.2.</b>
+                    
+                    磁盘
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.2.1" data-path="../disk/lvm-usage.html">
+            
+                <a href="../disk/lvm-usage.html">
+            
+                    
+                        <b>3.2.1.</b>
+                    
+                    LVM的使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.2" data-path="../disk/disk-command.html">
+            
+                <a href="../disk/disk-command.html">
+            
+                    
+                        <b>3.2.2.</b>
+                    
+                    磁盘命令
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">网络</li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" >
+            
+                <span>
+            
+                    
+                        <b>4.1.</b>
+                    
+                    TCP/IP
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1.1" data-path="../tcpip/tcpip-basics.html">
+            
+                <a href="../tcpip/tcpip-basics.html">
+            
+                    
+                        <b>4.1.1.</b>
+                    
+                    TCP/IP基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.2" data-path="../tcpip/ip.html">
+            
+                <a href="../tcpip/ip.html">
+            
+                    
+                        <b>4.1.2.</b>
+                    
+                    IP协议
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.3" data-path="../tcpip/tcp-udp.html">
+            
+                <a href="../tcpip/tcp-udp.html">
+            
+                    
+                        <b>4.1.3.</b>
+                    
+                    TCP与UDP协议
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" >
+            
+                <span>
+            
+                    
+                        <b>4.2.</b>
+                    
+                    Http
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.2.1" data-path="../tcpip/http-basics.html">
+            
+                <a href="../tcpip/http-basics.html">
+            
+                    
+                        <b>4.2.1.</b>
+                    
+                    Http基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.2" data-path="../tcpip/http-message.html">
+            
+                <a href="../tcpip/http-message.html">
+            
+                    
+                        <b>4.2.2.</b>
+                    
+                    Http报文
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.3" data-path="../tcpip/http-code.html">
+            
+                <a href="../tcpip/http-code.html">
+            
+                    
+                        <b>4.2.3.</b>
+                    
+                    Http状态码
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" >
+            
+                <span>
+            
+                    
+                        <b>4.3.</b>
+                    
+                    网络命令
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.3.1" data-path="../network/iptables.html">
+            
+                <a href="../network/iptables.html">
+            
+                    
+                        <b>4.3.1.</b>
+                    
+                    iptables
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">程序</li>
+        
+        
+    
+        <li class="chapter " data-level="5.1" >
+            
+                <span>
+            
+                    
+                        <b>5.1.</b>
+                    
+                    进程
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" >
+            
+                <span>
+            
+                    
+                        <b>5.2.</b>
+                    
+                    Shell 脚本
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.2.1" data-path="../shell/shell-introduction.html">
+            
+                <a href="../shell/shell-introduction.html">
+            
+                    
+                        <b>5.2.1.</b>
+                    
+                    Shell简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2.2" data-path="../shell/shell-var.html">
+            
+                <a href="../shell/shell-var.html">
+            
+                    
+                        <b>5.2.2.</b>
+                    
+                    Shell变量
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2.3" data-path="../shell/shell-char.html">
+            
+                <a href="../shell/shell-char.html">
+            
+                    
+                        <b>5.2.3.</b>
+                    
+                    Shell运算符
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2.4" data-path="../shell/shell-array.html">
+            
+                <a href="../shell/shell-array.html">
+            
+                    
+                        <b>5.2.4.</b>
+                    
+                    Shell数组
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2.5" data-path="../shell/shell-echo.html">
+            
+                <a href="../shell/shell-echo.html">
+            
+                    
+                        <b>5.2.5.</b>
+                    
+                    Shell echo命令
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2.6" data-path="../shell/shell-if.html">
+            
+                <a href="../shell/shell-if.html">
+            
+                    
+                        <b>5.2.6.</b>
+                    
+                    Shell判断语句
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2.7" data-path="../shell/shell-loop.html">
+            
+                <a href="../shell/shell-loop.html">
+            
+                    
+                        <b>5.2.7.</b>
+                    
+                    Shell循环语句
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2.8" data-path="../shell/shell-function.html">
+            
+                <a href="../shell/shell-function.html">
+            
+                    
+                        <b>5.2.8.</b>
+                    
+                    Shell函数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2.9" data-path="../shell/shell-stdout.html">
+            
+                <a href="../shell/shell-stdout.html">
+            
+                    
+                        <b>5.2.9.</b>
+                    
+                    Shell重定向
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">运维工具</li>
+        
+        
+    
+        <li class="chapter " data-level="6.1" data-path="../tools/ansible-usage.html">
+            
+                <a href="../tools/ansible-usage.html">
+            
+                    
+                        <b>6.1.</b>
+                    
+                    Ansible的使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.2" data-path="../tools/supervisor-usage.html">
+            
+                <a href="../tools/supervisor-usage.html">
+            
+                    
+                        <b>6.2.</b>
+                    
+                    Supervisor的使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" data-path="../tools/confd-usage.html">
+            
+                <a href="../tools/confd-usage.html">
+            
+                    
+                        <b>6.3.</b>
+                    
+                    Confd的使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.4" data-path="../tools/nfs-usage.html">
+            
+                <a href="../tools/nfs-usage.html">
+            
+                    
+                        <b>6.4.</b>
+                    
+                    NFS的使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.5" data-path="../tools/ceph-fuse.html">
+            
+                <a href="../tools/ceph-fuse.html">
+            
+                    
+                        <b>6.5.</b>
+                    
+                    ceph-fuse的使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.6" data-path="../tools/ssh-tips.html">
+            
+                <a href="../tools/ssh-tips.html">
+            
+                    
+                        <b>6.6.</b>
+                    
+                    ssh tips
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Git管理</li>
+        
+        
+    
+        <li class="chapter " data-level="7.1" data-path="../git/git.html">
+            
+                <a href="../git/git.html">
+            
+                    
+                        <b>7.1.</b>
+                    
+                    Git 介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.2" data-path="../git/git-common-cmd.html">
+            
+                <a href="../git/git-common-cmd.html">
+            
+                    
+                        <b>7.2.</b>
+                    
+                    Git 常用命令
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.3" data-path="../git/git-commands.html">
+            
+                <a href="../git/git-commands.html">
+            
+                    
+                        <b>7.3.</b>
+                    
+                    Git 命令分类
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.4" data-path="../git/git-commit-msg.html">
+            
+                <a href="../git/git-commit-msg.html">
+            
+                    
+                        <b>7.4.</b>
+                    
+                    Git commit规范
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.5" data-path="../git/git-alias-zsh.html">
+            
+                <a href="../git/git-alias-zsh.html">
+            
+                    
+                        <b>7.5.</b>
+                    
+                    Git 命令别名
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">数据库</li>
+        
+        
+    
+        <li class="chapter " data-level="8.1" >
+            
+                <span>
+            
+                    
+                        <b>8.1.</b>
+                    
+                    Mysql
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1.1" data-path="../mysql/system-manage.html">
+            
+                <a href="../mysql/system-manage.html">
+            
+                    
+                        <b>8.1.1.</b>
+                    
+                    系统管理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.2" data-path="../mysql/table-operation.html">
+            
+                <a href="../mysql/table-operation.html">
+            
+                    
+                        <b>8.1.2.</b>
+                    
+                    数据表操作
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.3" data-path="../mysql/curd-commands.html">
+            
+                <a href="../mysql/curd-commands.html">
+            
+                    
+                        <b>8.1.3.</b>
+                    
+                    表内容操作
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2" >
+            
+                <span>
+            
+                    
+                        <b>8.2.</b>
+                    
+                    Redis
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.2.1" data-path="../redis/redis-introduction.html">
+            
+                <a href="../redis/redis-introduction.html">
+            
+                    
+                        <b>8.2.1.</b>
+                    
+                    Redis介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2.2" data-path="../redis/redis-cluster.html">
+            
+                <a href="../redis/redis-cluster.html">
+            
+                    
+                        <b>8.2.2.</b>
+                    
+                    Redis集群模式部署
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2.3" data-path="../redis/redis-sentinel.html">
+            
+                <a href="../redis/redis-sentinel.html">
+            
+                    
+                        <b>8.2.3.</b>
+                    
+                    Redis主从及哨兵模式部署
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2.4" data-path="../redis/redis-conf-cn.html">
+            
+                <a href="../redis/redis-conf-cn.html">
+            
+                    
+                        <b>8.2.4.</b>
+                    
+                    Redis配置详解(中文版)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2.5" data-path="../redis/redis-conf-en.html">
+            
+                <a href="../redis/redis-conf-en.html">
+            
+                    
+                        <b>8.2.5.</b>
+                    
+                    Redis配置详解(英文版)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8.3" >
+            
+                <span>
+            
+                    
+                        <b>8.3.</b>
+                    
+                    Memcached
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.3.1" data-path="../memcached/memcached.html">
+            
+                <a href="../memcached/memcached.html">
+            
+                    
+                        <b>8.3.1.</b>
+                    
+                    Memcached的使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.3.2" data-path="../memcached/memcached-cmd.html">
+            
+                <a href="../memcached/memcached-cmd.html">
+            
+                    
+                        <b>8.3.2.</b>
+                    
+                    Memcached命令
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">网络工具</li>
+        
+        
+    
+        <li class="chapter " data-level="9.1" >
+            
+                <span>
+            
+                    
+                        <b>9.1.</b>
+                    
+                    Nginx
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="9.1.1" data-path="../nginx/install-nginx.html">
+            
+                <a href="../nginx/install-nginx.html">
+            
+                    
+                        <b>9.1.1.</b>
+                    
+                    Nginx安装与配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.2" data-path="../nginx/nginx-proxy.html">
+            
+                <a href="../nginx/nginx-proxy.html">
+            
+                    
+                        <b>9.1.2.</b>
+                    
+                    Nginx作为反向代理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.3" data-path="../nginx/nginx-http.html">
+            
+                <a href="../nginx/nginx-http.html">
+            
+                    
+                        <b>9.1.3.</b>
+                    
+                    Nginx http服务器
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="9.2" >
+            
+                <span>
+            
+                    
+                        <b>9.2.</b>
+                    
+                    Keepalived
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="9.2.1" data-path="keepalived-introduction.html">
+            
+                <a href="keepalived-introduction.html">
+            
+                    
+                        <b>9.2.1.</b>
+                    
+                    Keepalived简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.2.2" data-path="install-keepalived.html">
+            
+                <a href="install-keepalived.html">
+            
+                    
+                        <b>9.2.2.</b>
+                    
+                    Keepalived的安装与配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.2.3" data-path="keepalived-operation.html">
+            
+                <a href="keepalived-operation.html">
+            
+                    
+                        <b>9.2.3.</b>
+                    
+                    Keepalived的相关操作
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.2.4" data-path="keepalived-conf.html">
+            
+                <a href="keepalived-conf.html">
+            
+                    
+                        <b>9.2.4.</b>
+                    
+                    Keepalived的配置详解
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">工具技巧</li>
+        
+        
+    
+        <li class="chapter " data-level="10.1" >
+            
+                <span>
+            
+                    
+                        <b>10.1.</b>
+                    
+                    快捷键
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="10.1.1" data-path="../keymap/vscode-keymap.html">
+            
+                <a href="../keymap/vscode-keymap.html">
+            
+                    
+                        <b>10.1.1.</b>
+                    
+                    vscode快捷键
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="10.1.2" data-path="../keymap/eclipse-keymap.html">
+            
+                <a href="../keymap/eclipse-keymap.html">
+            
+                    
+                        <b>10.1.2.</b>
+                    
+                    eclipse快捷键
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="10.1.3" data-path="../keymap/chrome-keymap.html">
+            
+                <a href="../keymap/chrome-keymap.html">
+            
+                    
+                        <b>10.1.3.</b>
+                    
+                    chrome快捷键
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="10.1.4" data-path="../keymap/tmux-keymap.html">
+            
+                <a href="../keymap/tmux-keymap.html">
+            
+                    
+                        <b>10.1.4.</b>
+                    
+                    tmux快捷键
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="10.1.5" data-path="../keymap/iterm2-rzsz.html">
+            
+                <a href="../keymap/iterm2-rzsz.html">
+            
+                    
+                        <b>10.1.5.</b>
+                    
+                    iterm2 rzsz的使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="10.2" >
+            
+                <span>
+            
+                    
+                        <b>10.2.</b>
+                    
+                    vim
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="10.2.1" data-path="../vim/vim-keymap.html">
+            
+                <a href="../vim/vim-keymap.html">
+            
+                    
+                        <b>10.2.1.</b>
+                    
+                    vim命令
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="10.2.2" data-path="../vim/vimrc-cn.html">
+            
+                <a href="../vim/vimrc-cn.html">
+            
+                    
+                        <b>10.2.2.</b>
+                    
+                    vimrc配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="10.2.3" data-path="../vim/basic-vimrc.html">
+            
+                <a href="../vim/basic-vimrc.html">
+            
+                    
+                        <b>10.2.3.</b>
+                    
+                    basic vimrc
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Keepalived简介</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div class="search-plus" id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                
+                <div id="vip-container">
+                    <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#1-keepalived&#x7B80;&#x4ECB;"><b></b>1. Keepalived&#x7B80;&#x4ECB;</a></li><ul><li><span class="title-icon "></span><a href="#11-&#x6982;&#x8FF0;"><b></b>1.1. &#x6982;&#x8FF0;</a></li><li><span class="title-icon "></span><a href="#12-keepalived&#x7684;&#x4F5C;&#x7528;"><b></b>1.2. keepalived&#x7684;&#x4F5C;&#x7528;</a></li></ul><li><span class="title-icon "></span><a href="#2-&#x5982;&#x4F55;&#x5B9E;&#x73B0;keepalived"><b></b>2. &#x5982;&#x4F55;&#x5B9E;&#x73B0;Keepalived</a></li><ul><li><span class="title-icon "></span><a href="#21-&#x57FA;&#x4E8E;vrrp&#x534F;&#x8BAE;&#x7684;&#x7406;&#x89E3;"><b></b>2.1. &#x57FA;&#x4E8E;VRRP&#x534F;&#x8BAE;&#x7684;&#x7406;&#x89E3;</a></li><li><span class="title-icon "></span><a href="#22-&#x57FA;&#x4E8E;tcpip&#x534F;&#x8BAE;&#x7684;&#x7406;&#x89E3;"><b></b>2.2. &#x57FA;&#x4E8E;TCP/IP&#x534F;&#x8BAE;&#x7684;&#x7406;&#x89E3;</a></li></ul><li><span class="title-icon "></span><a href="#3-keepalived&#x9009;&#x4E3E;&#x7B56;&#x7565;"><b></b>3. Keepalived&#x9009;&#x4E3E;&#x7B56;&#x7565;</a></li><ul><li><span class="title-icon "></span><a href="#31-&#x9009;&#x4E3E;&#x7B56;&#x7565;"><b></b>3.1. &#x9009;&#x4E3E;&#x7B56;&#x7565;</a></li><li><span class="title-icon "></span><a href="#32-priority&#x548C;weight&#x7684;&#x8BBE;&#x5B9A;"><b></b>3.2. priority&#x548C;weight&#x7684;&#x8BBE;&#x5B9A;</a></li></ul></ul></div><a href="#1-keepalived&#x7B80;&#x4ECB;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><h1 id="1-keepalived&#x7B80;&#x4ECB;"><a name="1-keepalived&#x7B80;&#x4ECB;" class="anchor-navigation-ex-anchor" href="#1-keepalived&#x7B80;&#x4ECB;"><i class="fa fa-link" aria-hidden="true"></i></a>1. Keepalived&#x7B80;&#x4ECB;</h1>
+<h2 id="11-&#x6982;&#x8FF0;"><a name="11-&#x6982;&#x8FF0;" class="anchor-navigation-ex-anchor" href="#11-&#x6982;&#x8FF0;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1. &#x6982;&#x8FF0;</h2>
+<p>Keepalived&#x4E00;&#x4E2A;&#x57FA;&#x4E8E;VRRP&#x534F;&#x8BAE;&#x6765;&#x5B9E;&#x73B0;&#x7684;LVS&#x670D;&#x52A1;&#x9AD8;&#x53EF;&#x7528;&#x65B9;&#x6848;&#xFF0C;&#x53EF;&#x4EE5;&#x5229;&#x7528;&#x5176;&#x6765;&#x907F;&#x514D;&#x5355;&#x70B9;&#x6545;&#x969C;&#x3002;&#x4E00;&#x4E2A;LVS&#x670D;&#x52A1;&#x4F1A;&#x6709;2&#x53F0;&#x670D;&#x52A1;&#x5668;&#x8FD0;&#x884C;Keepalived&#xFF0C;&#x4E00;&#x53F0;&#x4E3A;&#x4E3B;&#x670D;&#x52A1;&#x5668;&#xFF08;MASTER&#xFF09;&#xFF0C;&#x4E00;&#x53F0;&#x4E3A;&#x5907;&#x4EFD;&#x670D;&#x52A1;&#x5668;&#xFF08;BACKUP&#xFF09;&#xFF0C;&#x4F46;&#x662F;&#x5BF9;&#x5916;&#x8868;&#x73B0;&#x4E3A;&#x4E00;&#x4E2A;&#x865A;&#x62DF;IP&#xFF0C;&#x4E3B;&#x670D;&#x52A1;&#x5668;&#x4F1A;&#x53D1;&#x9001;&#x7279;&#x5B9A;&#x7684;&#x6D88;&#x606F;&#x7ED9;&#x5907;&#x4EFD;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x5F53;&#x5907;&#x4EFD;&#x670D;&#x52A1;&#x5668;&#x6536;&#x4E0D;&#x5230;&#x8FD9;&#x4E2A;&#x6D88;&#x606F;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5373;&#x4E3B;&#x670D;&#x52A1;&#x5668;&#x5B95;&#x673A;&#x7684;&#x65F6;&#x5019;&#xFF0C; &#x5907;&#x4EFD;&#x670D;&#x52A1;&#x5668;&#x5C31;&#x4F1A;&#x63A5;&#x7BA1;&#x865A;&#x62DF;IP&#xFF0C;&#x7EE7;&#x7EED;&#x63D0;&#x4F9B;&#x670D;&#x52A1;&#xFF0C;&#x4ECE;&#x800C;&#x4FDD;&#x8BC1;&#x4E86;&#x9AD8;&#x53EF;&#x7528;&#x6027;&#x3002; </p>
+<h2 id="12-keepalived&#x7684;&#x4F5C;&#x7528;"><a name="12-keepalived&#x7684;&#x4F5C;&#x7528;" class="anchor-navigation-ex-anchor" href="#12-keepalived&#x7684;&#x4F5C;&#x7528;"><i class="fa fa-link" aria-hidden="true"></i></a>1.2. keepalived&#x7684;&#x4F5C;&#x7528;</h2>
+<p>Keepalived&#x7684;&#x4F5C;&#x7528;&#x662F;&#x68C0;&#x6D4B;&#x670D;&#x52A1;&#x5668;&#x7684;&#x72B6;&#x6001;&#xFF0C;&#x5982;&#x679C;&#x6709;&#x4E00;&#x53F0;web&#x670D;&#x52A1;&#x5668;&#x6B7B;&#x673A;&#xFF0C;&#x6216;&#x5DE5;&#x4F5C;&#x51FA;&#x73B0;&#x6545;&#x969C;&#xFF0C;Keepalived&#x5C06;&#x68C0;&#x6D4B;&#x5230;&#xFF0C;&#x5E76;&#x5C06;&#x6709;&#x6545;&#x969C;&#x7684;&#x670D;&#x52A1;&#x5668;&#x4ECE;&#x7CFB;&#x7EDF;&#x4E2D;&#x5254;&#x9664;&#xFF0C;&#x540C;&#x65F6;&#x4F7F;&#x7528;&#x5176;&#x4ED6;&#x670D;&#x52A1;&#x5668;&#x4EE3;&#x66FF;&#x8BE5;&#x670D;&#x52A1;&#x5668;&#x7684;&#x5DE5;&#x4F5C;&#xFF0C;&#x5F53;&#x670D;&#x52A1;&#x5668;&#x5DE5;&#x4F5C;&#x6B63;&#x5E38;&#x540E;Keepalived&#x81EA;&#x52A8;&#x5C06;&#x670D;&#x52A1;&#x5668;&#x52A0;&#x5165;&#x5230;&#x670D;&#x52A1;&#x5668;&#x7FA4;&#x4E2D;&#x3002;</p>
+<h1 id="2-&#x5982;&#x4F55;&#x5B9E;&#x73B0;keepalived"><a name="2-&#x5982;&#x4F55;&#x5B9E;&#x73B0;keepalived" class="anchor-navigation-ex-anchor" href="#2-&#x5982;&#x4F55;&#x5B9E;&#x73B0;keepalived"><i class="fa fa-link" aria-hidden="true"></i></a>2. &#x5982;&#x4F55;&#x5B9E;&#x73B0;Keepalived</h1>
+<h2 id="21-&#x57FA;&#x4E8E;vrrp&#x534F;&#x8BAE;&#x7684;&#x7406;&#x89E3;"><a name="21-&#x57FA;&#x4E8E;vrrp&#x534F;&#x8BAE;&#x7684;&#x7406;&#x89E3;" class="anchor-navigation-ex-anchor" href="#21-&#x57FA;&#x4E8E;vrrp&#x534F;&#x8BAE;&#x7684;&#x7406;&#x89E3;"><i class="fa fa-link" aria-hidden="true"></i></a>2.1. &#x57FA;&#x4E8E;VRRP&#x534F;&#x8BAE;&#x7684;&#x7406;&#x89E3;</h2>
+<p>Keepalived&#x662F;&#x4EE5;VRRP&#x534F;&#x8BAE;&#x4E3A;&#x5B9E;&#x73B0;&#x57FA;&#x7840;&#x7684;&#xFF0C;VRRP&#x5168;&#x79F0;<code>Virtual Router Redundancy Protocol</code>&#xFF0C;&#x5373;<code>&#x865A;&#x62DF;&#x8DEF;&#x7531;&#x5197;&#x4F59;&#x534F;&#x8BAE;</code>&#x3002;</p>
+<p>&#x865A;&#x62DF;&#x8DEF;&#x7531;&#x5197;&#x4F59;&#x534F;&#x8BAE;&#xFF0C;&#x53EF;&#x4EE5;&#x8BA4;&#x4E3A;&#x662F;&#x5B9E;&#x73B0;&#x8DEF;&#x7531;&#x5668;&#x9AD8;&#x53EF;&#x7528;&#x7684;&#x534F;&#x8BAE;&#xFF0C;&#x5373;&#x5C06;N&#x53F0;&#x63D0;&#x4F9B;&#x76F8;&#x540C;&#x529F;&#x80FD;&#x7684;&#x8DEF;&#x7531;&#x5668;&#x7EC4;&#x6210;&#x4E00;&#x4E2A;&#x8DEF;&#x7531;&#x5668;&#x7EC4;&#xFF0C;&#x8FD9;&#x4E2A;&#x7EC4;&#x91CC;&#x9762;&#x6709;&#x4E00;&#x4E2A;master&#x548C;&#x591A;&#x4E2A;backup&#xFF0C;master&#x4E0A;&#x9762;&#x6709;&#x4E00;&#x4E2A;&#x5BF9;&#x5916;&#x63D0;&#x4F9B;&#x670D;&#x52A1;&#x7684;vip&#xFF08;&#x8BE5;&#x8DEF;&#x7531;&#x5668;&#x6240;&#x5728;&#x5C40;&#x57DF;&#x7F51;&#x5185;&#x5176;&#x4ED6;&#x673A;&#x5668;&#x7684;&#x9ED8;&#x8BA4;&#x8DEF;&#x7531;&#x4E3A;&#x8BE5;vip&#xFF09;&#xFF0C;master&#x4F1A;&#x53D1;&#x7EC4;&#x64AD;&#xFF0C;&#x5F53;backup&#x6536;&#x4E0D;&#x5230;vrrp&#x5305;&#x65F6;&#x5C31;&#x8BA4;&#x4E3A;master&#x5B95;&#x6389;&#x4E86;&#xFF0C;&#x8FD9;&#x65F6;&#x5C31;&#x9700;&#x8981;&#x6839;&#x636E;VRRP&#x7684;&#x4F18;&#x5148;&#x7EA7;&#x6765;&#x9009;&#x4E3E;&#x4E00;&#x4E2A;backup&#x5F53;master&#x3002;&#x8FD9;&#x6837;&#x7684;&#x8BDD;&#x5C31;&#x53EF;&#x4EE5;&#x4FDD;&#x8BC1;&#x8DEF;&#x7531;&#x5668;&#x7684;&#x9AD8;&#x53EF;&#x7528;&#x4E86;&#x3002;</p>
+<p>keepalived&#x4E3B;&#x8981;&#x6709;&#x4E09;&#x4E2A;&#x6A21;&#x5757;&#xFF0C;&#x5206;&#x522B;&#x662F;core&#x3001;check&#x548C;vrrp&#x3002;core&#x6A21;&#x5757;&#x4E3A;keepalived&#x7684;&#x6838;&#x5FC3;&#xFF0C;&#x8D1F;&#x8D23;&#x4E3B;&#x8FDB;&#x7A0B;&#x7684;&#x542F;&#x52A8;&#x3001;&#x7EF4;&#x62A4;&#x4EE5;&#x53CA;&#x5168;&#x5C40;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x7684;&#x52A0;&#x8F7D;&#x548C;&#x89E3;&#x6790;&#x3002;check&#x8D1F;&#x8D23;&#x5065;&#x5EB7;&#x68C0;&#x67E5;&#xFF0C;&#x5305;&#x62EC;&#x5E38;&#x89C1;&#x7684;&#x5404;&#x79CD;&#x68C0;&#x67E5;&#x65B9;&#x5F0F;&#x3002;vrrp&#x6A21;&#x5757;&#x662F;&#x6765;&#x5B9E;&#x73B0;VRRP&#x534F;&#x8BAE;&#x7684;&#x3002;</p>
+<h2 id="22-&#x57FA;&#x4E8E;tcpip&#x534F;&#x8BAE;&#x7684;&#x7406;&#x89E3;"><a name="22-&#x57FA;&#x4E8E;tcpip&#x534F;&#x8BAE;&#x7684;&#x7406;&#x89E3;" class="anchor-navigation-ex-anchor" href="#22-&#x57FA;&#x4E8E;tcpip&#x534F;&#x8BAE;&#x7684;&#x7406;&#x89E3;"><i class="fa fa-link" aria-hidden="true"></i></a>2.2. &#x57FA;&#x4E8E;TCP/IP&#x534F;&#x8BAE;&#x7684;&#x7406;&#x89E3;</h2>
+<p>Layer3,4&amp;7&#x5DE5;&#x4F5C;&#x5728;IP/TCP&#x534F;&#x8BAE;&#x6808;&#x7684;IP&#x5C42;&#xFF0C;TCP&#x5C42;&#xFF0C;&#x53CA;&#x5E94;&#x7528;&#x5C42;,&#x539F;&#x7406;&#x5206;&#x522B;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p><strong>Layer3&#xFF1A;</strong></p>
+<p>Keepalived&#x4F7F;&#x7528;Layer3&#x7684;&#x65B9;&#x5F0F;&#x5DE5;&#x4F5C;&#x5F0F;&#x65F6;&#xFF0C;Keepalived&#x4F1A;&#x5B9A;&#x671F;&#x5411;&#x670D;&#x52A1;&#x5668;&#x7FA4;&#x4E2D;&#x7684;&#x670D;&#x52A1;&#x5668;&#x53D1;&#x9001;&#x4E00;&#x4E2A;ICMP&#x7684;&#x6570;&#x636E;&#x5305;&#xFF08;&#x65E2;&#x6211;&#x4EEC;&#x5E73;&#x65F6;&#x7528;&#x7684;Ping&#x7A0B;&#x5E8F;&#xFF09;,&#x5982;&#x679C;&#x53D1;&#x73B0;&#x67D0;&#x53F0;&#x670D;&#x52A1;&#x7684;IP&#x5730;&#x5740;&#x6CA1;&#x6709;&#x6FC0;&#x6D3B;&#xFF0C;Keepalived&#x4FBF;&#x62A5;&#x544A;&#x8FD9;&#x53F0;&#x670D;&#x52A1;&#x5668;&#x5931;&#x6548;&#xFF0C;&#x5E76;&#x5C06;&#x5B83;&#x4ECE;&#x670D;&#x52A1;&#x5668;&#x7FA4;&#x4E2D;&#x5254;&#x9664;&#xFF0C;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x7684;&#x5178;&#x578B;&#x4F8B;&#x5B50;&#x662F;&#x67D0;&#x53F0;&#x670D;&#x52A1;&#x5668;&#x88AB;&#x975E;&#x6CD5;&#x5173;&#x673A;&#x3002;Layer3&#x7684;&#x65B9;&#x5F0F;&#x662F;&#x4EE5;&#x670D;&#x52A1;&#x5668;&#x7684;IP&#x5730;&#x5740;&#x662F;&#x5426;&#x6709;&#x6548;&#x4F5C;&#x4E3A;&#x670D;&#x52A1;&#x5668;&#x5DE5;&#x4F5C;&#x6B63;&#x5E38;&#x4E0E;&#x5426;&#x7684;&#x6807;&#x51C6;&#x3002;</p>
+<p><strong>Layer4:</strong></p>
+<p>&#x5982;&#x679C;&#x60A8;&#x7406;&#x89E3;&#x4E86;Layer3&#x7684;&#x65B9;&#x5F0F;&#xFF0C;Layer4&#x5C31;&#x5BB9;&#x6613;&#x4E86;&#x3002;Layer4&#x4E3B;&#x8981;&#x4EE5;TCP&#x7AEF;&#x53E3;&#x7684;&#x72B6;&#x6001;&#x6765;&#x51B3;&#x5B9A;&#x670D;&#x52A1;&#x5668;&#x5DE5;&#x4F5C;&#x6B63;&#x5E38;&#x4E0E;&#x5426;&#x3002;&#x5982;web server&#x7684;&#x670D;&#x52A1;&#x7AEF;&#x53E3;&#x4E00;&#x822C;&#x662F;80&#xFF0C;&#x5982;&#x679C;Keepalived&#x68C0;&#x6D4B;&#x5230;80&#x7AEF;&#x53E3;&#x6CA1;&#x6709;&#x542F;&#x52A8;&#xFF0C;&#x5219;Keepalived&#x5C06;&#x628A;&#x8FD9;&#x53F0;&#x670D;&#x52A1;&#x5668;&#x4ECE;&#x670D;&#x52A1;&#x5668;&#x7FA4;&#x4E2D;&#x5254;&#x9664;&#x3002;</p>
+<p><strong>Layer7&#xFF1A;</strong></p>
+<p>Layer7&#x5C31;&#x662F;&#x5DE5;&#x4F5C;&#x5728;&#x5177;&#x4F53;&#x7684;&#x5E94;&#x7528;&#x5C42;&#x4E86;&#xFF0C;&#x6BD4;Layer3,Layer4&#x8981;&#x590D;&#x6742;&#x4E00;&#x70B9;&#xFF0C;&#x5728;&#x7F51;&#x7EDC;&#x4E0A;&#x5360;&#x7528;&#x7684;&#x5E26;&#x5BBD;&#x4E5F;&#x8981;&#x5927;&#x4E00;&#x4E9B;&#x3002;Keepalived&#x5C06;&#x6839;&#x636E;&#x7528;&#x6237;&#x7684;&#x8BBE;&#x5B9A;&#x68C0;&#x67E5;&#x670D;&#x52A1;&#x5668;&#x7A0B;&#x5E8F;&#x7684;&#x8FD0;&#x884C;&#x662F;&#x5426;&#x6B63;&#x5E38;&#xFF0C;&#x5982;&#x679C;&#x4E0E;&#x7528;&#x6237;&#x7684;&#x8BBE;&#x5B9A;&#x4E0D;&#x76F8;&#x7B26;&#xFF0C;&#x5219;Keepalived&#x5C06;&#x628A;&#x670D;&#x52A1;&#x5668;&#x4ECE;&#x670D;&#x52A1;&#x5668;&#x7FA4;&#x4E2D;&#x5254;&#x9664;&#x3002;</p>
+<h1 id="3-keepalived&#x9009;&#x4E3E;&#x7B56;&#x7565;"><a name="3-keepalived&#x9009;&#x4E3E;&#x7B56;&#x7565;" class="anchor-navigation-ex-anchor" href="#3-keepalived&#x9009;&#x4E3E;&#x7B56;&#x7565;"><i class="fa fa-link" aria-hidden="true"></i></a>3. Keepalived&#x9009;&#x4E3E;&#x7B56;&#x7565;</h1>
+<h2 id="31-&#x9009;&#x4E3E;&#x7B56;&#x7565;"><a name="31-&#x9009;&#x4E3E;&#x7B56;&#x7565;" class="anchor-navigation-ex-anchor" href="#31-&#x9009;&#x4E3E;&#x7B56;&#x7565;"><i class="fa fa-link" aria-hidden="true"></i></a>3.1. &#x9009;&#x4E3E;&#x7B56;&#x7565;</h2>
+<p>&#x9996;&#x5148;&#xFF0C;&#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x6709;&#x4E00;&#x4E2A;&#x521D;&#x59CB;&#x4F18;&#x5148;&#x7EA7;&#xFF0C;&#x7531;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x7684;priority&#x914D;&#x7F6E;&#x9879;&#x6307;&#x5B9A;&#xFF0C;MASTER&#x8282;&#x70B9;&#x7684;priority&#x5E94;&#x6BD4;BAKCUP&#x9AD8;&#x3002;&#x8FD0;&#x884C;&#x8FC7;&#x7A0B;&#x4E2D;keepalived&#x6839;&#x636E;vrrp_script&#x7684;weight&#x8BBE;&#x5B9A;&#xFF0C;&#x589E;&#x52A0;&#x6216;&#x51CF;&#x5C0F;&#x8282;&#x70B9;&#x4F18;&#x5148;&#x7EA7;&#x3002;&#x89C4;&#x5219;&#x5982;&#x4E0B;&#xFF1A;</p>
+<ol>
+<li><p>&#x201C;weight&#x201D;&#x503C;&#x4E3A;&#x6B63;&#x65F6;,&#x811A;&#x672C;&#x68C0;&#x6D4B;&#x6210;&#x529F;&#x65F6;&#x201D;weight&#x201D;&#x503C;&#x4F1A;&#x52A0;&#x5230;&#x201D;priority&#x201D;&#x4E0A;,&#x68C0;&#x6D4B;&#x5931;&#x8D25;&#x662F;&#x4E0D;&#x52A0;</p>
+<ul>
+<li><p>&#x4E3B;&#x5931;&#x8D25;:
+  &#x4E3B;priority&lt;&#x5907;priority+weight&#x4E4B;&#x548C;&#x65F6;&#x4F1A;&#x5207;&#x6362;</p>
+</li>
+<li><p>&#x4E3B;&#x6210;&#x529F;:
+  &#x4E3B;priority+weight&#x4E4B;&#x548C;&gt;&#x5907;priority+weight&#x4E4B;&#x548C;&#x65F6;,&#x4E3B;&#x4F9D;&#x7136;&#x4E3A;&#x4E3B;,&#x5373;&#x4E0D;&#x53D1;&#x751F;&#x5207;&#x6362;</p>
+</li>
+</ul>
+</li>
+<li><p>&#x201C;weight&#x201D;&#x4E3A;&#x8D1F;&#x6570;&#x65F6;,&#x811A;&#x672C;&#x68C0;&#x6D4B;&#x6210;&#x529F;&#x65F6;&#x201D;weight&#x201D;&#x4E0D;&#x5F71;&#x54CD;&#x201D;priority&#x201D;,&#x68C0;&#x6D4B;&#x5931;&#x8D25;&#x65F6;,Master&#x8282;&#x70B9;&#x7684;&#x6743;&#x503C;&#x5C06;&#x662F;&#x201C;priority&#x201C;&#x503C;&#x4E0E;&#x201C;weight&#x201D;&#x503C;&#x4E4B;&#x5DEE;</p>
+<ul>
+<li><p>&#x4E3B;&#x5931;&#x8D25;:
+ &#x4E3B;priotity-abs(weight) &lt; &#x5907;priority&#x65F6;&#x4F1A;&#x53D1;&#x751F;&#x5207;&#x6362;</p>
+</li>
+<li><p>&#x4E3B;&#x6210;&#x529F;:
+ &#x4E3B;priority &gt; &#x5907;priority &#x4E0D;&#x5207;&#x6362;</p>
+</li>
+</ul>
+</li>
+<li><p>&#x5F53;&#x4E24;&#x4E2A;&#x8282;&#x70B9;&#x7684;&#x4F18;&#x5148;&#x7EA7;&#x76F8;&#x540C;&#x65F6;&#xFF0C;&#x4EE5;&#x8282;&#x70B9;&#x53D1;&#x9001;VRRP&#x901A;&#x544A;&#x7684;IP&#x4F5C;&#x4E3A;&#x6BD4;&#x8F83;&#x5BF9;&#x8C61;&#xFF0C;IP&#x8F83;&#x5927;&#x8005;&#x4E3A;MASTER&#x3002;</p>
+</li>
+</ol>
+<h2 id="32-priority&#x548C;weight&#x7684;&#x8BBE;&#x5B9A;"><a name="32-priority&#x548C;weight&#x7684;&#x8BBE;&#x5B9A;" class="anchor-navigation-ex-anchor" href="#32-priority&#x548C;weight&#x7684;&#x8BBE;&#x5B9A;"><i class="fa fa-link" aria-hidden="true"></i></a>3.2. priority&#x548C;weight&#x7684;&#x8BBE;&#x5B9A;</h2>
+<ol>
+<li><p>&#x4E3B;&#x4ECE;&#x7684;&#x4F18;&#x5148;&#x7EA7;&#x521D;&#x59CB;&#x503C;priority&#x548C;&#x53D8;&#x5316;&#x91CF;weight&#x8BBE;&#x7F6E;&#x975E;&#x5E38;&#x5173;&#x952E;&#xFF0C;&#x914D;&#x9519;&#x7684;&#x8BDD;&#x4F1A;&#x5BFC;&#x81F4;&#x65E0;&#x6CD5;&#x8FDB;&#x884C;&#x4E3B;&#x4ECE;&#x5207;&#x6362;&#x3002;&#x6BD4;&#x5982;&#xFF0C;&#x5F53;MASTER&#x521D;&#x59CB;&#x503C;&#x5B9A;&#x5F97;&#x592A;&#x9AD8;&#xFF0C;&#x5373;&#x4F7F;script&#x811A;&#x672C;&#x6267;&#x884C;&#x5931;&#x8D25;&#xFF0C;&#x4E5F;&#x6BD4;BACKUP&#x7684;priority + weight&#x5927;&#xFF0C;&#x5C31;&#x6CA1;&#x6CD5;&#x8FDB;&#x884C;VIP&#x6F02;&#x79FB;&#x4E86;&#x3002;</p>
+</li>
+<li><p>&#x6240;&#x4EE5;priority&#x548C;weight&#x503C;&#x7684;&#x8BBE;&#x5B9A;&#x5E94;&#x9075;&#x5FAA;: abs(MASTER priority - BAKCUP priority) &lt; abs(weight)&#x3002;&#x4E00;&#x822C;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x521D;&#x59CB;&#x503C;MASTER&#x7684;priority&#x503C;&#x5E94;&#x8BE5;&#x6BD4;&#x8F83;BACKUP&#x5927;&#xFF0C;&#x4F46;&#x4E0D;&#x80FD;&#x8D85;&#x8FC7;weight&#x7684;&#x7EDD;&#x5BF9;&#x503C;&#x3002; &#x53E6;&#x5916;&#xFF0C;&#x5F53;&#x7F51;&#x7EDC;&#x4E2D;&#x4E0D;&#x652F;&#x6301;&#x591A;&#x64AD;(&#x4F8B;&#x5982;&#x67D0;&#x4E9B;&#x4E91;&#x73AF;&#x5883;)&#xFF0C;&#x6216;&#x8005;&#x51FA;&#x73B0;&#x7F51;&#x7EDC;&#x5206;&#x533A;&#x7684;&#x60C5;&#x51B5;&#xFF0C;keepalived BACKUP&#x8282;&#x70B9;&#x6536;&#x4E0D;&#x5230;MASTER&#x7684;VRRP&#x901A;&#x544A;&#xFF0C;&#x5C31;&#x4F1A;&#x51FA;&#x73B0;&#x8111;&#x88C2;(split brain)&#x73B0;&#x8C61;&#xFF0C;&#x6B64;&#x65F6;&#x96C6;&#x7FA4;&#x4E2D;&#x4F1A;&#x5B58;&#x5728;&#x591A;&#x4E2A;MASTER&#x8282;&#x70B9;&#x3002;</p>
+</li>
+</ol>
+<footer class="page-footer"><span class="copyright">Copyright &#xA9; www.huweihuang.com 2017-2018 all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Updated at 
+2022-12-17 16:16:10
+</span></footer>
+                </div>
+                <script src="https://my.openwrite.cn/js/readmore.js"></script>
+                <script>
+                    var enablePlugin = false;
+                    var allowDomain = ["www.huweihuang.com","localhost"];
+                    if(allowDomain){
+                        var currentDomain = location.hostname;
+                        if ($.isArray(allowDomain)) {
+                            $.each(allowDomain, function(index, item) {
+                                if (currentDomain == item) {
+                                    enablePlugin = true;
+                                    return false;
+                                }
+                            });
+                        }else{
+                           if (currentDomain == allowDomain) {
+                                enablePlugin = true;
+                            }
+                        }
+                    }else{
+                        enablePlugin = true;
+                    }
+                    
+                    if(enablePlugin){
+                        var isMobile = navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i);
+                        if (!isMobile) {
+                            var btw = new BTWPlugin();
+                            btw.init({"allowDomain":["www.huweihuang.com","localhost"],"blogId":"30679-1666624328262-820","name":"容器云架构","qrcode":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1551600382/blog/wechat-public-acconut.jpg","keyword":"linux","id":"vip-container"});
+                        }
+                    }
+                </script>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                
+                <a href="install-keepalived.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Keepalived的安装与配置">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Keepalived简介","weight":1,"catalog":true,"date":"2019-09-20T10:50:57.000Z","subtitle":null,"header-img":null,"tags":["Keepalived"],"catagories":["Keepalived"],"level":"9.2.1","depth":2,"next":{"title":"Keepalived的安装与配置","level":"9.2.2","depth":2,"path":"keepalived/install-keepalived.md","ref":"keepalived/install-keepalived.md","articles":[]},"previous":{"title":"Keepalived","level":"9.2","depth":1,"ref":"","articles":[{"title":"Keepalived简介","level":"9.2.1","depth":2,"path":"keepalived/keepalived-introduction.md","ref":"keepalived/keepalived-introduction.md","articles":[]},{"title":"Keepalived的安装与配置","level":"9.2.2","depth":2,"path":"keepalived/install-keepalived.md","ref":"keepalived/install-keepalived.md","articles":[]},{"title":"Keepalived的相关操作","level":"9.2.3","depth":2,"path":"keepalived/keepalived-operation.md","ref":"keepalived/keepalived-operation.md","articles":[]},{"title":"Keepalived的配置详解","level":"9.2.4","depth":2,"path":"keepalived/keepalived-conf.md","ref":"keepalived/keepalived-conf.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["github","codesnippet","splitter","image-captions","editlink","anchor-navigation-ex","-lunr","-search","search-plus","github-buttons@2.1.0","favicon@^0.0.2","tbfed-pagefooter@^0.0.1","3-ba","theme-default","-highlight","prism","prism-themes","sitemap-general","ga","disqus","donate","expandable-chapters","readmore"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © www.huweihuang.com 2017-2018","modify_label":"Updated at ","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"huweihuang"},"github":{"url":"https://github.com/huweihuang"},"editlink":{"label":"编辑本页","multilingual":false,"base":"https://github.com/huweihuang/linux-notes/blob/master/"},"splitter":{},"readmore":{"allowDomain":["www.huweihuang.com","localhost"],"blogId":"30679-1666624328262-820","name":"容器云架构","qrcode":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1551600382/blog/wechat-public-acconut.jpg","keyword":"linux"},"donate":{"alipay":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1551599640/blog/donate/alipay.jpg","alipayText":"支付宝打赏","button":"赏","title":"","wechat":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1551599472/blog/donate/wechatpay.jpg","wechatText":"微信打赏"},"codesnippet":{},"sitemap-general":{"prefix":"https://www.huweihuang.com/linux-notes/"},"fontsettings":{"theme":"white","family":"sans","size":2},"anchor-navigation-ex":{"showLevelIcon":false,"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"showLevel":false,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"printLog":false,"multipleH1":false,"multipleH2":false,"associatedWithSummary":true,"multipleH3":false,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"multipleH4":false},"favicon":{"shortcut":"images/favicon.ico","bookmark":"images/favicon.ico","appleTouch":"images/favicon.ico","appleTouchMore":{"120x120":"images/favicon.ico","180x180":"images/favicon.ico"}},"prism-themes":{},"github-buttons":{"repo":"huweihuang/linux-notes","types":["star"],"size":"small"},"3-ba":{"configuration":"auto","token":"e146d71b77957235bba1e709d930f62e"},"ga":{"configuration":"auto","token":"UA-114718458-2"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"showLevel":true,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"expandable-chapters":{},"search-plus":{},"image-captions":{"caption":"图片 - _CAPTION_","variable_name":"_pictures"}},"theme":"default","author":"胡伟煌","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"file/linux-file-storage.html#fig3.1.3.1","level":"3.1.3","list_caption":"Figure: img","alt":"img","nro":1,"url":"../img/linux-storage.png","index":1,"caption_template":"图片 - _CAPTION_","label":"img","attributes":{},"skip":false,"key":"3.1.3.1"},{"backlink":"tcpip/ip.html#fig4.1.2.1","level":"4.1.2","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":2,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579278/article/tcpip/ip/1.1.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.1.2.1"},{"backlink":"tcpip/ip.html#fig4.1.2.2","level":"4.1.2","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":3,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579278/article/tcpip/ip/1.2.png","index":2,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.1.2.2"},{"backlink":"tcpip/ip.html#fig4.1.2.3","level":"4.1.2","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":4,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579278/article/tcpip/ip/1.3.png","index":3,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.1.2.3"},{"backlink":"tcpip/ip.html#fig4.1.2.4","level":"4.1.2","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":5,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579278/article/tcpip/ip/1.3.0.png","index":4,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.1.2.4"},{"backlink":"tcpip/ip.html#fig4.1.2.5","level":"4.1.2","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":6,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579278/article/tcpip/ip/1.3.1.png","index":5,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.1.2.5"},{"backlink":"tcpip/ip.html#fig4.1.2.6","level":"4.1.2","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":7,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579279/article/tcpip/ip/2.2.png","index":6,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.1.2.6"},{"backlink":"tcpip/ip.html#fig4.1.2.7","level":"4.1.2","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":8,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579278/article/tcpip/ip/2.2.1.png","index":7,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.1.2.7"},{"backlink":"tcpip/ip.html#fig4.1.2.8","level":"4.1.2","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":9,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579279/article/tcpip/ip/2.3.png","index":8,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.1.2.8"},{"backlink":"tcpip/ip.html#fig4.1.2.9","level":"4.1.2","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":10,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579279/article/tcpip/ip/2.4.1.png","index":9,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.1.2.9"},{"backlink":"tcpip/ip.html#fig4.1.2.10","level":"4.1.2","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":11,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579279/article/tcpip/ip/3.1.png","index":10,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.1.2.10"},{"backlink":"tcpip/ip.html#fig4.1.2.11","level":"4.1.2","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":12,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579280/article/tcpip/ip/3.2.png","index":11,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.1.2.11"},{"backlink":"tcpip/ip.html#fig4.1.2.12","level":"4.1.2","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":13,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579280/article/tcpip/ip/4.1.png","index":12,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.1.2.12"},{"backlink":"tcpip/ip.html#fig4.1.2.13","level":"4.1.2","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":14,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579280/article/tcpip/ip/4.2.png","index":13,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.1.2.13"},{"backlink":"tcpip/tcp-udp.html#fig4.1.3.1","level":"4.1.3","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":15,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579309/article/tcpip/tcpudp/1.1.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.1.3.1"},{"backlink":"tcpip/tcp-udp.html#fig4.1.3.2","level":"4.1.3","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":16,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579310/article/tcpip/tcpudp/1.2.png","index":2,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.1.3.2"},{"backlink":"tcpip/tcp-udp.html#fig4.1.3.3","level":"4.1.3","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":17,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579309/article/tcpip/tcpudp/1.3.3.png","index":3,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.1.3.3"},{"backlink":"tcpip/tcp-udp.html#fig4.1.3.4","level":"4.1.3","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":18,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579309/article/tcpip/tcpudp/2.2.png","index":4,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.1.3.4"},{"backlink":"tcpip/tcp-udp.html#fig4.1.3.5","level":"4.1.3","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":19,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579309/article/tcpip/tcpudp/2.2.1.png","index":5,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.1.3.5"},{"backlink":"tcpip/tcp-udp.html#fig4.1.3.6","level":"4.1.3","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":20,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579310/article/tcpip/tcpudp/2.3.png","index":6,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.1.3.6"},{"backlink":"tcpip/http-message.html#fig4.2.2.1","level":"4.2.2","list_caption":"Figure: img","alt":"img","nro":21,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510580019/article/tcpip/http/codestatus/3.1.png","index":1,"caption_template":"图片 - _CAPTION_","label":"img","attributes":{},"skip":false,"key":"4.2.2.1"},{"backlink":"tcpip/http-message.html#fig4.2.2.2","level":"4.2.2","list_caption":"Figure: img","alt":"img","nro":22,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510580019/article/tcpip/http/codestatus/3.2.png","index":2,"caption_template":"图片 - _CAPTION_","label":"img","attributes":{},"skip":false,"key":"4.2.2.2"},{"backlink":"tcpip/http-message.html#fig4.2.2.3","level":"4.2.2","list_caption":"Figure: img","alt":"img","nro":23,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510580020/article/tcpip/http/codestatus/3.2.2.png","index":3,"caption_template":"图片 - _CAPTION_","label":"img","attributes":{},"skip":false,"key":"4.2.2.3"},{"backlink":"tcpip/http-message.html#fig4.2.2.4","level":"4.2.2","list_caption":"Figure: img","alt":"img","nro":24,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510580019/article/tcpip/http/codestatus/3.3.2.png","index":4,"caption_template":"图片 - _CAPTION_","label":"img","attributes":{},"skip":false,"key":"4.2.2.4"},{"backlink":"tcpip/http-message.html#fig4.2.2.5","level":"4.2.2","list_caption":"Figure: img","alt":"img","nro":25,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510580020/article/tcpip/http/codestatus/3.3.3.png","index":5,"caption_template":"图片 - _CAPTION_","label":"img","attributes":{},"skip":false,"key":"4.2.2.5"},{"backlink":"tcpip/http-message.html#fig4.2.2.6","level":"4.2.2","list_caption":"Figure: img","alt":"img","nro":26,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510580020/article/tcpip/http/codestatus/3.5.png","index":6,"caption_template":"图片 - _CAPTION_","label":"img","attributes":{},"skip":false,"key":"4.2.2.6"},{"backlink":"tcpip/http-message.html#fig4.2.2.7","level":"4.2.2","list_caption":"Figure: img","alt":"img","nro":27,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510580020/article/tcpip/http/codestatus/3.5.2.png","index":7,"caption_template":"图片 - _CAPTION_","label":"img","attributes":{},"skip":false,"key":"4.2.2.7"},{"backlink":"tcpip/http-code.html#fig4.2.3.1","level":"4.2.3","list_caption":"Figure: img","alt":"img","nro":28,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510580022/article/tcpip/http/codestatus/4.png","index":1,"caption_template":"图片 - _CAPTION_","label":"img","attributes":{},"skip":false,"key":"4.2.3.1"},{"backlink":"tcpip/http-code.html#fig4.2.3.2","level":"4.2.3","list_caption":"Figure: img","alt":"img","nro":29,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510580020/article/tcpip/http/codestatus/4.1.1.png","index":2,"caption_template":"图片 - _CAPTION_","label":"img","attributes":{},"skip":false,"key":"4.2.3.2"},{"backlink":"tcpip/http-code.html#fig4.2.3.3","level":"4.2.3","list_caption":"Figure: img","alt":"img","nro":30,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510580020/article/tcpip/http/codestatus/4.1.2.png","index":3,"caption_template":"图片 - _CAPTION_","label":"img","attributes":{},"skip":false,"key":"4.2.3.3"},{"backlink":"tcpip/http-code.html#fig4.2.3.4","level":"4.2.3","list_caption":"Figure: img","alt":"img","nro":31,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510580020/article/tcpip/http/codestatus/4.1.3.png","index":4,"caption_template":"图片 - _CAPTION_","label":"img","attributes":{},"skip":false,"key":"4.2.3.4"},{"backlink":"tcpip/http-code.html#fig4.2.3.5","level":"4.2.3","list_caption":"Figure: img","alt":"img","nro":32,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510580020/article/tcpip/http/codestatus/4.2.1.png","index":5,"caption_template":"图片 - _CAPTION_","label":"img","attributes":{},"skip":false,"key":"4.2.3.5"},{"backlink":"tcpip/http-code.html#fig4.2.3.6","level":"4.2.3","list_caption":"Figure: img","alt":"img","nro":33,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510580021/article/tcpip/http/codestatus/4.2.2.png","index":6,"caption_template":"图片 - _CAPTION_","label":"img","attributes":{},"skip":false,"key":"4.2.3.6"},{"backlink":"tcpip/http-code.html#fig4.2.3.7","level":"4.2.3","list_caption":"Figure: img","alt":"img","nro":34,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510580020/article/tcpip/http/codestatus/4.2.3.png","index":7,"caption_template":"图片 - _CAPTION_","label":"img","attributes":{},"skip":false,"key":"4.2.3.7"},{"backlink":"tcpip/http-code.html#fig4.2.3.8","level":"4.2.3","list_caption":"Figure: img","alt":"img","nro":35,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510580021/article/tcpip/http/codestatus/4.2.4.png","index":8,"caption_template":"图片 - _CAPTION_","label":"img","attributes":{},"skip":false,"key":"4.2.3.8"},{"backlink":"tcpip/http-code.html#fig4.2.3.9","level":"4.2.3","list_caption":"Figure: img","alt":"img","nro":36,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510580021/article/tcpip/http/codestatus/4.3.1.png","index":9,"caption_template":"图片 - _CAPTION_","label":"img","attributes":{},"skip":false,"key":"4.2.3.9"},{"backlink":"tcpip/http-code.html#fig4.2.3.10","level":"4.2.3","list_caption":"Figure: img","alt":"img","nro":37,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510580021/article/tcpip/http/codestatus/4.3.2.png","index":10,"caption_template":"图片 - _CAPTION_","label":"img","attributes":{},"skip":false,"key":"4.2.3.10"},{"backlink":"tcpip/http-code.html#fig4.2.3.11","level":"4.2.3","list_caption":"Figure: img","alt":"img","nro":38,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510580021/article/tcpip/http/codestatus/4.3.3.png","index":11,"caption_template":"图片 - _CAPTION_","label":"img","attributes":{},"skip":false,"key":"4.2.3.11"},{"backlink":"tcpip/http-code.html#fig4.2.3.12","level":"4.2.3","list_caption":"Figure: img","alt":"img","nro":39,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510580021/article/tcpip/http/codestatus/4.3.4.png","index":12,"caption_template":"图片 - _CAPTION_","label":"img","attributes":{},"skip":false,"key":"4.2.3.12"},{"backlink":"tcpip/http-code.html#fig4.2.3.13","level":"4.2.3","list_caption":"Figure: img","alt":"img","nro":40,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510580021/article/tcpip/http/codestatus/4.4.1.png","index":13,"caption_template":"图片 - _CAPTION_","label":"img","attributes":{},"skip":false,"key":"4.2.3.13"},{"backlink":"tcpip/http-code.html#fig4.2.3.14","level":"4.2.3","list_caption":"Figure: img","alt":"img","nro":41,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510580022/article/tcpip/http/codestatus/4.4.2.png","index":14,"caption_template":"图片 - _CAPTION_","label":"img","attributes":{},"skip":false,"key":"4.2.3.14"},{"backlink":"tools/supervisor-usage.html#fig6.2.1","level":"6.2","list_caption":"Figure: supervisor","alt":"supervisor","nro":42,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1528457482/article/linux/supervisor.png","index":1,"caption_template":"图片 - _CAPTION_","label":"supervisor","attributes":{},"skip":false,"key":"6.2.1"},{"backlink":"git/git.html#fig7.1.1","level":"7.1","list_caption":"Figure: git-map","alt":"git-map","nro":43,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578830/article/git/git-map.png","index":1,"caption_template":"图片 - _CAPTION_","label":"git-map","attributes":{},"skip":false,"key":"7.1.1"},{"backlink":"git/git-commands.html#fig7.3.1","level":"7.3","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":44,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578830/article/git/git-arch.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"7.3.1"},{"backlink":"nginx/nginx-proxy.html#fig9.1.2.1","level":"9.1.2","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":45,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1537696859/article/nginx/nginx.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"9.1.2.1"}]},"title":"Linux 学习笔记","language":"zh-hans","links":{"sidebar":{"胡伟煌的博客":"https://www.huweihuang.com","Kubernetes 学习笔记":"https://www.huweihuang.com/kubernetes-notes/","Golang 学习笔记":"https://www.huweihuang.com/golang-notes/","Linux 学习笔记":"https://www.huweihuang.com/linux-notes/","数据结构学习笔记":"https://www.huweihuang.com/data-structure-notes/","Python 学习笔记":"https://www.huweihuang.com/python-notes/","Blockchain 学习笔记":"https://www.huweihuang.com/blockchain-notes/"}},"gitbook":">= 3.2.2","description":"Linux 学习笔记"},"file":{"path":"keepalived/keepalived-introduction.md","mtime":"2022-12-17T08:16:10.827Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-12-17T08:16:23.221Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-editlink/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github-buttons/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-3-ba/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-ga/plugin.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-disqus/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-donate/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
